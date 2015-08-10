@@ -6,7 +6,8 @@ export default class MainSection extends Component {
 		super(props, context);
 
 		this.state = {
-			isCheckAllChecked: false
+			isCheckAllChecked: false,
+			isDeleteButtonShow: false
 		};
 	}
 
@@ -43,33 +44,35 @@ export default class MainSection extends Component {
 		actions.markAll();
 
 		if (!e.target.checked) {
-			this.setState(
-				{
-					isCheckAllChecked: false
-				}
-			);
+			this.setState({
+				isCheckAllChecked: false
+			});
 		} else {
-			this.setState(
-				{
-					isCheckAllChecked: true
-				}
-			);
+			this.setState({
+				isCheckAllChecked: true
+			});
 		}
 	}
+
+	handleMark(id) {
+		const { actions } = this.props;
+		actions.markTodo(id);
+	}
+
 
 	render() {
 
 		const { todos , actions } = this.props;
-
 		return (
-			<div>
+			<div className="MainSection">
 				<input type='text' onKeyDown={e => {this.addTodo(e)}} />
-				<input type='checkbox' onChange={e => {this.markAll(e)}} checked={this.state.isCheckAllChecked ? "checked" : ""} />Check All
+				<input type='checkbox' onChange={e => {this.markAll(e)}}  checked={this.state.isCheckAllChecked ? "checked" : ""} />Check All
+				<hr />
 				{	todos.map( todo => 
-						<TodoItem todo={todo} actions={actions}/>
+						<TodoItem todo={todo} actions={actions} handleMark={() => {this.handleMark(todo.id)}} />
 					)
 				}
-				<button onClick={() => {this.deleteTodo()}}>
+				<button onClick={() => {this.deleteTodo()}} >
 					Delete Selected Item(s)
 				</button>
 			</div>
