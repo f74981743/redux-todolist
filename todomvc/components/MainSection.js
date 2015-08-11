@@ -69,7 +69,10 @@ export default class MainSection extends Component {
 	    );
 		return (
 			<div className="MainSection">
-				<input type='text' checked={markedCount === todos.length} onKeyDown={e => {this.addTodo(e)}} />
+				<div className="ui left icon input">
+					<input type='text' placeholder="Please type your todo" checked={markedCount === todos.length} onKeyDown={e => {this.addTodo(e)}} />
+					<i className="write icon"></i>
+				</div>
 				{this.renderMarkAll(markedCount)}
 				
 				<hr />
@@ -77,7 +80,7 @@ export default class MainSection extends Component {
 						<TodoItem todo={todo} actions={actions} handleMark={() => {this.handleMark(todo.id)}} />
 					)
 				}
-				<button onClick={() => {this.deleteTodo()}} style={ markedCount > 0 ? { display: 'block' } : { display: 'none' } } >
+				<button className="ui primary button" onClick={() => {this.deleteTodo()}} style={ markedCount > 0 ? { display: 'block' } : { display: 'none' } } >
 					Delete Selected Item(s)
 				</button>
 			</div>
@@ -88,8 +91,9 @@ export default class MainSection extends Component {
 		const { todos, actions } = this.props;
 		if (todos.length > 0) {
 			return (
-				<div>
-					<input type='checkbox' onChange={e => {this.markAll(e)}}  checked={markedCount === todos.length} /><label>Check All</label>
+				<div className="ui checkbox" onClick={e => {this.markAll(e)}}>
+					<input type='checkbox' checked={markedCount === todos.length} />
+					<label>Check All</label>
 				</div>
 			);
 		}

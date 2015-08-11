@@ -11,8 +11,9 @@ export default class TodoItem extends Component {
 		const { todo, handleMark } = this.props;
 
 		return (
-			<div>
-				<input type="checkbox" ref="list" /*onChange={() => {handleMark()}}*/onChange={(e) => {this.handleMark(todo.id)}} checked={todo.marked ? "checked" : ""} /><label>{todo.text}</label>
+			<div className="ui checkbox" onClick={(e) => {this.handleMark(todo.id)}}>
+				<input type="checkbox" ref="list" /*onChange={() => {handleMark()}}*//*onChange={(e) => {this.handleMark(todo.id)}}*/ checked={todo.marked ? "checked" : ""} />
+				<label>{todo.text}</label>
 			</div>
 		)
 	}
